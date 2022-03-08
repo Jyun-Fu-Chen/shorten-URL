@@ -5,7 +5,7 @@ const exhbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const URL = require('./models/shortUrl')
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/short_url_list')
+mongoose.connect('mongodb://localhost/short-url-list')
 const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!!')
