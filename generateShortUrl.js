@@ -8,7 +8,7 @@ const generateArr = generateWords.split('')
 const generateShortUrl = function () {
   let code = " "
   
-  const randomNumber = generateArr.length + 1
+  const randomNumber = generateArr.length
 
   for (let i = 0; i < 5; i++) {
     code += generateArr[Math.floor(Math.random() * randomNumber)]

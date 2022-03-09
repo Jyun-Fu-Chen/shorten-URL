@@ -26,13 +26,19 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+app.get('/shortUrl/:shortUrl', (req, res) => {
+  const shortUrl = req.params.shortUrl.trim()
+  console.log(shortUrl)
+  res.render('shortUrl', { shortUrl })
+})
+
 app.post('/', (req, res) => {
   const originalUrl = req.body.url
+  let shortUrl = generateShortUrl().trim()
   URL.find()
     .then(urls => {
-      let shortUrl = generateShortUrl()
       if (urls.includes(shortUrl)) {
-        shortUrl = generateShortUrl()
+        shortUrl = generateShortUrl().trim()
       } else {
         URL.create({
           originalUrl: originalUrl,
@@ -40,12 +46,16 @@ app.post('/', (req, res) => {
         })
       }
     })
-    .then(()=>res.redirect('/'))
+    .then(() => res.redirect(`/shortUrl/${shortUrl}`))
     .catch(err => console.log(err))
 })
-
-
-
+app.get('/:shortUrl', (req, res) => {
+  let shortUrl = req.params.shortUrl
+  console.log(shortUrl)
+  URL.findOne({ shortUrl: "1z0Ze" })
+    .then(url => res.redirect(url.originalUrl))
+    .catch(err => console.log(err))
+})
 app.listen(PORT, () => {
   console.log(`localhost:${PORT} is running`)
 })
