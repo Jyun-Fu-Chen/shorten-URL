@@ -1,7 +1,5 @@
 const URL = require('../shortUrl')
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/short-url-list')
-const db = mongoose.connection
+const db = require('../../config/mongoose')
 const seederData = [
   { originalUrl: `https://www.google.com/`, shortUrl: `ijK39`},
   { originalUrl: `https://www.facebook.com/`, shortUrl: `eh739` },
@@ -9,9 +7,6 @@ const seederData = [
   { originalUrl: `https://developer.mozilla.org/en-US/`, shortUrl: `1js4n` },
   { originalUrl: `https://mongoosejs.com/`, shortUrl: `8am30` }
 ]
-db.on('error', () => {
-  console.log('mongodb error!!')
-})
 db.once('open', () => {
   console.log('mongodb connected!!')
   URL.insertMany(seederData, function (err, docs) {

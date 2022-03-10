@@ -1,5 +1,7 @@
 const express = require('express')
+const PORT = process.env.PORT || 3000
 const router = express.Router()
+
 const generateShortUrl = require('../../generateShortUrl')
 const URL = require('../../models/shortUrl')
 
@@ -10,7 +12,8 @@ router.get('/', (req, res) => {
 
 router.get('/shortUrl/:shortUrl', (req, res) => {
   const shortUrl = req.params.shortUrl.trim()
-  res.render('shortUrl', { shortUrl })
+  const onLine = PORT === 3000
+  res.render('shortUrl', { shortUrl, onLine, PORT})
 })
 
 router.post('/', (req, res) => {
