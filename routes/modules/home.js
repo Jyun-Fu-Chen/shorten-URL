@@ -11,18 +11,18 @@ router.get('/', (req, res) => {
 })
 
 router.get('/shortUrl/:shortUrl', (req, res) => {
-  const shortUrl = req.params.shortUrl.trim()
+  const shortUrl = req.params.shortUrl
   const onLine = PORT === 3000
-  res.render('shortUrl', { shortUrl, onLine, PORT})
+  res.render('shortUrl', { shortUrl, onLine, PORT })
 })
 
 router.post('/', (req, res) => {
   const originalUrl = req.body.url
-  let shortUrl = generateShortUrl().trim()
+  let shortUrl = generateShortUrl()
   URL.find()
     .then(urls => {
       if (urls.includes(shortUrl)) {
-        shortUrl = generateShortUrl().trim()
+        shortUrl = generateShortUrl()
       } else {
         URL.create({
           originalUrl: originalUrl,
@@ -31,13 +31,13 @@ router.post('/', (req, res) => {
       }
     })
     .then(() => res.redirect(`/shortUrl/${shortUrl}`))
-    .catch(err => console.log(err))
+    .catch(err => res.render('errPage', { err: err.message }))
 })
 router.get('/:shortUrl', (req, res) => {
   const shortUrl = req.params.shortUrl
   URL.findOne({ shortUrl: shortUrl })
     .then(url => res.redirect(url.originalUrl))
-    .catch(err => console.log(err))
+    .catch(err => res.render('errPage', { err: err.message }))
 })
 
 module.exports = router

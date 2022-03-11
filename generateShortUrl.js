@@ -6,7 +6,7 @@ const generateArr = generateWords.split('')
 
 
 const generateShortUrl = function () {
-  let code = " "
+  let code = ""
   
   const randomNumber = generateArr.length
 

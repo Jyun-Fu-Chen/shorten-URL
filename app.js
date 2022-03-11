@@ -4,7 +4,6 @@ const PORT = 3000
 const exhbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
-const generateShortUrl = require('./generateShortUrl')
 const URL = require('./models/shortUrl')
 const routes = require('./routes')
 require('./config/mongoose')
